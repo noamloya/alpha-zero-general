@@ -27,9 +27,9 @@ class Board():
         self.pieces = [None] * self.n
         for i in range(self.n):
             self.pieces[i] = [0] * self.n
-            for j in range(self.n):
-                if forbidden_moves[i][j] == 1:
-                    self.pieces[i][j] = np.nan
+            # for j in range(self.n):
+                # if forbidden_moves[i][j] == 1:
+                #     self.pieces[i][j] = np.nan
         # Set up the initial 4 pieces.
 
         self.pieces[int(self.n / 2) - 1][int(self.n / 2)] = 1
