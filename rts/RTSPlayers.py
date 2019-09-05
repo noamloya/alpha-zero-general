@@ -38,7 +38,7 @@ class HumanRTSPlayer:
         self.game = game
         self.USER_PLAYER = 1  # used by Human Player - this does not change if human pit player is 1 or -1
 
-    def play(self, board: np.ndarray) -> List:
+    def play(self, board: np.ndarray, verbose=False) -> List:
         """
         Manages input using PyGame canvas/ console input
         :param board: current board
@@ -48,11 +48,11 @@ class HumanRTSPlayer:
 
         n = board.shape[0]
         valid = self.game.getValidMoves(board, 1)
-        self.display_valid_moves(board, valid)
+        self.display_valid_moves(board, valid, verbose)
         while True:
 
             if CONFIG.visibility > 3:
-                a = self._manage_input(board)
+                a = self._manage_input(board, verbose=verbose)
                 x, y, action_index = a
 
             else:
@@ -71,11 +71,11 @@ class HumanRTSPlayer:
                 break
             else:
                 print('This action is invalid!')
-                self.display_valid_moves(board, valid)
+                self.display_valid_moves(board, valid, verbose)
 
         return a
 
-    def display_valid_moves(self, board, valid) -> None:
+    def display_valid_moves(self, board, valid, verbose=False) -> None:
         """
         Displays all valid moves in console for specific board
         :param board: board to display moves upon
@@ -88,8 +88,9 @@ class HumanRTSPlayer:
         for i in range(len(valid)):
             if valid[i]:
                 y, x, action_index = np.unravel_index(i, [n, n, NUM_ACTS])
-                print(x, y, ACTS_REV[action_index])
-                print("----------")
+                if verbose:
+                    print(x, y, ACTS_REV[action_index])
+                    print("----------")
 
     @staticmethod
     def select_object(board: np.ndarray, click_location: tuple) -> dotdict:
@@ -117,7 +118,7 @@ class HumanRTSPlayer:
                     return dotdict({"x": x, "y": y})
         return dotdict({"x": -1, "y": -1})
 
-    def _manage_input(self, board: np.ndarray) -> list:
+    def _manage_input(self, board: np.ndarray, verbose=False) -> list:
         """
         Manages click and keyboard selections on PyGame canvas
         :param board: game state
@@ -255,7 +256,7 @@ class HumanRTSPlayer:
                                 return clicked_actor_index_arr
                             else:
                                 print("invalid")
-                                self.display_valid_moves(board, None)
+                                self.display_valid_moves(board, None, verbose)
                         else:
                             print("First left click on actor to select it")
 

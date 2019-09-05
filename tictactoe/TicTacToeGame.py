@@ -21,7 +21,7 @@ class TicTacToeGame(Game):
     def __init__(self, n=3, winning_amount=3, forbidden_moves=None):
         self.n = n
         self.winning_amount = winning_amount
-        if forbidden_moves:
+        if forbidden_moves is not None:
             self.forbidden_moves = forbidden_moves
         else:
             self.forbidden_moves = np.zeros((self.n, self.n))
