@@ -17,11 +17,11 @@ class HumanOthelloPlayer():
     def __init__(self, game):
         self.game = game
 
-    def play(self, board):
+    def play(self, board, verbose=False):
         # display(board)
         valid = self.game.getValidMoves(board, 1)
         for i in range(len(valid)):
-            if valid[i]:
+            if valid[i] and verbose:
                 print(int(i/self.game.n), int(i%self.game.n))
         while True:
             a = input()
