@@ -18,10 +18,14 @@ Based on the OthelloGame by Surag Nair.
 
 
 class TicTacToeGame(Game):
-    def __init__(self, n=3, winning_amount=3, forbidden_moves=np.zeros((3,3))):
+    def __init__(self, n=3, winning_amount=3, forbidden_moves=None):
         self.n = n
         self.winning_amount = winning_amount
-        self.forbidden_moves = forbidden_moves
+        if forbidden_moves:
+            self.forbidden_moves = forbidden_moves
+        else:
+            self.forbidden_moves = np.zeros((self.n, self.n))
+
         self.symmetry_indices = self.get_symmetry_indices()
 
     def get_symmetry_indices(self):
