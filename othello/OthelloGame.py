@@ -113,29 +113,31 @@ class OthelloGame(Game):
         b.pieces = np.copy(board)
         return b.countDiff(player)
 
+    def display(self, board):
+        board = board.astype(float)
+        board[self.forbidden_moves == 1] = np.nan
 
-def display(board):
-    n = board.shape[0]
+        n = board.shape[0]
 
-    for y in range(n):
-        print(y, "|", end="")
-    print("")
-    print(" -----------------------")
-    for y in range(n):
-        print(y, "|", end="")  # print the row #
-        for x in range(n):
-            piece = board[y][x]  # get the piece to print
-            if np.isnan(piece):
-                print("/ ", end="")
-            elif piece == -1:
-                print("b ", end="")
-            elif piece == 1:
-                print("W ", end="")
-            else:
-                if x == n:
-                    print("-", end="")
+        for y in range(n):
+            print(y, "|", end="")
+        print("")
+        print(" -----------------------")
+        for y in range(n):
+            print(y, "|", end="")  # print the row #
+            for x in range(n):
+                piece = board[y][x]  # get the piece to print
+                if np.isnan(piece):
+                    print("/ ", end="")
+                elif piece == -1:
+                    print("b ", end="")
+                elif piece == 1:
+                    print("W ", end="")
                 else:
-                    print("- ", end="")
-        print("|")
+                    if x == n:
+                        print("-", end="")
+                    else:
+                        print("- ", end="")
+            print("|")
 
-    print("   -----------------------")
+        print("   -----------------------")
